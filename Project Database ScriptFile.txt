@@ -1,0 +1,30 @@
+DROP DATABASE IF EXISTS `airlinereservationdb`;
+CREATE DATABASE  IF NOT EXISTS `airlinereservationdb`;
+USE `airlinereservationdb`;
+
+DROP TABLE IF EXISTS `flight`;
+CREATE TABLE `flight` (
+  `f_code` char(5) NOT NULL,
+  `f_origin` varchar(45) NOT NULL,
+  `f_destination` varchar(45) NOT NULL,
+  PRIMARY KEY (`f_code`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+LOCK TABLES `flight` WRITE;
+INSERT INTO `flight` VALUES ('AUI22','London','Melbourne'),('AUI33','Berlin','Texas'),('AUI44','Moscow','Madrid');
+UNLOCK TABLES;
+
+DROP TABLE IF EXISTS `seat`;
+CREATE TABLE `seat` (
+  `s_number` char(3) NOT NULL,
+  `s_reserved` tinyint(1) NOT NULL,
+  `f_code` char(5) NOT NULL,
+  PRIMARY KEY (`s_number`,`f_code`),
+  KEY `fk_seat_flight_idx` (`f_code`),
+  CONSTRAINT `fk_seat_flight` FOREIGN KEY (`f_code`) REFERENCES `flight` (`f_code`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+
+
+LOCK TABLES `seat` WRITE;
+INSERT INTO `seat` VALUES ('1A',0,'AUI22'),('1A',0,'AUI33'),('1A',0,'AUI44'),('1B',0,'AUI22'),('1B',0,'AUI33'),('1B',0,'AUI44'),('1C',0,'AUI22'),('1C',0,'AUI33'),('1C',0,'AUI44'),('1D',0,'AUI22'),('1D',0,'AUI33'),('1D',0,'AUI44'),('2A',0,'AUI22'),('2A',0,'AUI33'),('2A',0,'AUI44'),('2B',0,'AUI22'),('2B',0,'AUI33'),('2B',0,'AUI44'),('2C',0,'AUI22'),('2C',0,'AUI33'),('2C',0,'AUI44'),('2D',0,'AUI22'),('2D',0,'AUI33'),('2D',0,'AUI44'),('3A',0,'AUI22'),('3A',0,'AUI33'),('3A',0,'AUI44'),('3B',0,'AUI22'),('3B',0,'AUI33'),('3B',0,'AUI44'),('3C',0,'AUI22'),('3C',0,'AUI33'),('3C',0,'AUI44'),('3D',0,'AUI22'),('3D',0,'AUI33'),('3D',0,'AUI44'),('4A',0,'AUI22'),('4A',0,'AUI33'),('4A',0,'AUI44'),('4B',0,'AUI22'),('4B',0,'AUI33'),('4B',0,'AUI44'),('4C',0,'AUI22'),('4C',0,'AUI33'),('4C',0,'AUI44'),('4D',0,'AUI22'),('4D',0,'AUI33'),('4D',0,'AUI44'),('5A',0,'AUI22'),('5A',0,'AUI33'),('5A',0,'AUI44'),('5B',0,'AUI22'),('5B',0,'AUI33'),('5B',0,'AUI44'),('5C',0,'AUI22'),('5C',0,'AUI33'),('5C',0,'AUI44'),('5D',0,'AUI22'),('5D',0,'AUI33'),('5D',0,'AUI44');
+UNLOCK TABLES;
